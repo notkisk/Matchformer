@@ -54,6 +54,10 @@ public class Block : MonoBehaviour
         {
                 timeBtwCombo -= Time.deltaTime;
         }
+        //if (isGrounded())
+        //{
+        //    rb.velocity = new Vector2(rb.velocity.x,0f);
+        //}
     }
 
        
@@ -144,7 +148,9 @@ public class Block : MonoBehaviour
         Gizmos.DrawSphere(new Vector2(transform.position.x , transform.position.y - (GetComponent<BoxCollider2D>().size.y + checkThreshold)), 0.05f);
 
         Gizmos.DrawLine((Vector2)this.transform.position +new Vector2(0f, this.GetComponent<BoxCollider2D>().size.y) , u.transform.position);
-
+        Vector2 startPos = new Vector2(transform.position.x, transform.position.y - GetComponent<BoxCollider2D>().bounds.extents.y - 0.1f);
+        Vector2 endPos = new Vector2(startPos.x, startPos.y - 0.1f);
+        Gizmos.DrawLine(startPos,endPos);
     }
 
 
@@ -152,6 +158,14 @@ public class Block : MonoBehaviour
     {
        return Physics2D.OverlapPoint(new Vector2(transform.position.x, transform.position.y - GetComponent<BoxCollider2D>().size.y - checkThreshold), whatIsBlock);
 
+    }
+
+
+    bool isGrounded()
+    {
+        Vector2 startPos = new Vector2(transform.position.x, transform.position.y - GetComponent<BoxCollider2D>().bounds.extents.y);
+        Vector2 endPos = new Vector2(startPos.x, startPos.y - 0.1f);
+        return Physics2D.Linecast(startPos, endPos, whatIsBlock);
     }
 
    

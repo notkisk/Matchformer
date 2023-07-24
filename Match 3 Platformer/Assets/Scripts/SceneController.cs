@@ -40,7 +40,7 @@ public class SceneController : MonoBehaviour
         {
             StartCoroutine(ReloadScene(1f,1f));
         }
-
+        
     }
     public IEnumerator ReloadScene(float InAnimationDelay,float delay)
     {
